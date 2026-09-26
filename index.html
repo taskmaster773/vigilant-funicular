@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hello, World! — Nature Gallery</title>
+  <meta name="description" content="A default hello page celebrating the beauty of nature." />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌿</text></svg>" />
+  <style>
+    :root {
+      --green-dark: #1b4332;
+      --green: #2d6a4f;
+      --green-light: #74c69d;
+      --cream: #f6f9f4;
+      --ink: #12261d;
+      --shadow: 0 10px 30px rgba(18, 38, 29, 0.18);
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: "Segoe UI", system-ui, -apple-system, "Helvetica Neue", Arial, sans-serif;
+      background: var(--cream);
+      color: var(--ink);
+      line-height: 1.6;
+    }
+
+    /* ---------- Hero ---------- */
+    .hero {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      overflow: hidden;
+    }
+
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background: url("images/mountains.jpg") center / cover no-repeat;
+      animation: slowZoom 20s ease-in-out infinite alternate;
+    }
+
+    @keyframes slowZoom {
+      from { transform: scale(1); }
+      to   { transform: scale(1.08); }
+    }
+
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(18, 38, 29, 0.45) 0%, rgba(18, 38, 29, 0.25) 45%, rgba(18, 38, 29, 0.65) 100%);
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      color: #fff;
+      padding: 2rem;
+      max-width: 55rem;
+    }
+
+    .wave {
+      font-size: clamp(2rem, 5vw, 3.5rem);
+      display: inline-block;
+      animation: wave 2.4s ease-in-out infinite;
+      transform-origin: 70% 70%;
+    }
+
+    @keyframes wave {
+      0%, 60%, 100% { transform: rotate(0deg); }
+      10%, 30%      { transform: rotate(16deg); }
+      20%, 40%      { transform: rotate(-8deg); }
+    }
+
+    .hero h1 {
+      font-size: clamp(3rem, 10vw, 6.5rem);
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      line-height: 1.1;
+      margin: 0.5rem 0;
+      text-shadow: 0 4px 24px rgba(0, 0, 0, 0.45);
+      background: linear-gradient(120deg, #ffffff 30%, var(--green-light) 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero p {
+      font-size: clamp(1.05rem, 2.5vw, 1.4rem);
+      max-width: 38rem;
+      margin: 0 auto 2rem;
+      color: rgba(255, 255, 255, 0.92);
+      text-shadow: 0 2px 12px rgba(0, 0, 0, 0.4);
+    }
+
+    .cta {
+      display: inline-block;
+      padding: 0.9rem 2.2rem;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.14);
+      border: 1px solid rgba(255, 255, 255, 0.5);
+      color: #fff;
+      text-decoration: none;
+      font-weight: 600;
+      backdrop-filter: blur(6px);
+      transition: background 0.25s ease, transform 0.25s ease;
+    }
+
+    .cta:hover {
+      background: rgba(255, 255, 255, 0.28);
+      transform: translateY(-3px);
+    }
+
+    .scroll-hint {
+      position: absolute;
+      bottom: 1.5rem;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 2;
+      color: rgba(255, 255, 255, 0.85);
+      font-size: 1.6rem;
+      animation: bounce 2s ease-in-out infinite;
+    }
+
+    @keyframes bounce {
+      0%, 100% { transform: translate(-50%, 0); }
+      50%      { transform: translate(-50%, 10px); }
+    }
+
+    /* ---------- Gallery ---------- */
+    .gallery {
+      max-width: 72rem;
+      margin: 0 auto;
+      padding: 5rem 1.5rem;
+    }
+
+    .section-title {
+      text-align: center;
+      margin-bottom: 3rem;
+    }
+
+    .section-title h2 {
+      font-size: clamp(1.8rem, 4vw, 2.6rem);
+      color: var(--green-dark);
+    }
+
+    .section-title p {
+      color: #5c6f64;
+      max-width: 34rem;
+      margin: 0.5rem auto 0;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .card {
+      background: #fff;
+      border-radius: 1rem;
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 18px 44px rgba(18, 38, 29, 0.28);
+    }
+
+    .card img {
+      display: block;
+      width: 100%;
+      height: 15rem;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+
+    .card:hover img {
+      transform: scale(1.06);
+    }
+
+    .card-body {
+      padding: 1.1rem 1.3rem 1.3rem;
+    }
+
+    .card-body h3 {
+      color: var(--green-dark);
+      font-size: 1.15rem;
+      margin-bottom: 0.25rem;
+    }
+
+    .card-body p {
+      color: #5c6f64;
+      font-size: 0.95rem;
+    }
+
+    .card.feature {
+      grid-column: span 2;
+    }
+
+    .card.feature img {
+      height: 18rem;
+    }
+
+    /* ---------- Quote ---------- */
+    .quote {
+      background: linear-gradient(135deg, var(--green-dark), var(--green));
+      color: #fff;
+      text-align: center;
+      padding: 4.5rem 1.5rem;
+    }
+
+    .quote blockquote {
+      max-width: 45rem;
+      margin: 0 auto;
+      font-size: clamp(1.3rem, 3vw, 1.9rem);
+      font-style: italic;
+      line-height: 1.5;
+    }
+
+    .quote cite {
+      display: block;
+      margin-top: 1.2rem;
+      font-style: normal;
+      font-size: 1rem;
+      color: var(--green-light);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    /* ---------- Footer ---------- */
+    footer {
+      text-align: center;
+      padding: 2rem 1rem;
+      color: #5c6f64;
+      font-size: 0.9rem;
+      background: var(--cream);
+    }
+
+    footer .leaf { color: var(--green); }
+
+    @media (max-width: 640px) {
+      .card.feature { grid-column: span 1; }
+      .card.feature img { height: 15rem; }
+    }
+  </style>
+</head>
+<body>
+  <!-- Hero -->
+  <header class="hero" id="top">
+    <div class="hero-bg" role="img" aria-label="Majestic mountain landscape with trees"></div>
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <span class="wave" aria-hidden="true">👋</span>
+      <h1>Hello, World!</h1>
+      <p>Welcome to the default hello page — a small corner of the internet dedicated to the beauty of nature.</p>
+      <a class="cta" href="#gallery">Explore Nature ↓</a>
+    </div>
+    <div class="scroll-hint" aria-hidden="true">⌄</div>
+  </header>
+
+  <!-- Gallery -->
+  <main>
+    <section class="gallery" id="gallery">
+      <div class="section-title">
+        <h2>Wonders of Nature 🍃</h2>
+        <p>From towering peaks to sunlit forests and turquoise shores — take a moment to breathe it all in.</p>
+      </div>
+
+      <div class="grid">
+        <figure class="card">
+          <img src="images/valley.jpg" alt="Green valley beneath rugged mountains" loading="lazy" />
+          <figcaption class="card-body">
+            <h3>Majestic Valleys</h3>
+            <p>Where rivers carve the land and peaks touch the clouds.</p>
+          </figcaption>
+        </figure>
+
+        <figure class="card">
+          <img src="images/forest-sunlight.jpg" alt="Sunlight streaming through a lush green forest" loading="lazy" />
+          <figcaption class="card-body">
+            <h3>Sunlit Forests</h3>
+            <p>Golden light filtering through the canopy of ancient trees.</p>
+          </figcaption>
+        </figure>
+
+        <figure class="card">
+          <img src="images/beach.jpg" alt="Turquoise ocean water at a pristine tropical beach" loading="lazy" />
+          <figcaption class="card-body">
+            <h3>Turquoise Shores</h3>
+            <p>Crystal-clear waters meeting soft white sand.</p>
+          </figcaption>
+        </figure>
+
+        <figure class="card feature">
+          <img src="images/forest.jpg" alt="Peaceful forest with a ray of sunshine through dense trees" loading="lazy" />
+          <figcaption class="card-body">
+            <h3>Rays of Sunshine</h3>
+            <p>There is peace in the quiet of the woods — a gentle reminder to slow down and look up.</p>
+          </figcaption>
+        </figure>
+
+        <figure class="card">
+          <img src="images/beach-2.jpg" alt="Sunlight shimmering on calm tropical ocean water" loading="lazy" />
+          <figcaption class="card-body">
+            <h3>Ocean Calm</h3>
+            <p>Waves whisper along the shore in an endless, soothing rhythm.</p>
+          </figcaption>
+        </figure>
+
+        <figure class="card">
+          <img src="images/mountains.jpg" alt="Beautiful mountain landscape with trees and snow-capped peaks" loading="lazy" />
+          <figcaption class="card-body">
+            <h3>Mountain Air</h3>
+            <p>Crisp, cold, and endlessly refreshing at the top of the world.</p>
+          </figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- Quote -->
+    <section class="quote">
+      <blockquote>
+        “Look deep into nature, and then you will understand everything better.”
+        <cite>— Albert Einstein</cite>
+      </blockquote>
+    </section>
+  </main>
+
+  <footer>
+    <p>Made with <span class="leaf">🌿</span> — default hello page · <a href="#top">Back to top ↑</a></p>
+  </footer>
+</body>
+</html>
